@@ -1,11 +1,17 @@
-paths:
-  static: ''
-  uploads: uploads
-timezone: America/Bogota
-markdown:
-  engine: commonmark
-  options: {}
+# Configuración para sitio HTML estático puro
+source: ./
+output: ./
+
+# Esto le dice a CloudCannon que trate los archivos HTML como páginas editables
 collections_config:
   pages:
     path: ''
-    icon: wysiwyg
+    output: true
+    filter:
+      strict_prefix: false
+      base: none
+      glob: '*.html'
+
+# Forzar el editor visual
+_enabled_editors:
+  - visual
