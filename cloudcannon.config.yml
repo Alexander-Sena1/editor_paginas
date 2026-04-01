@@ -15,3 +15,7 @@ collections_config:
 # Forzar el editor visual
 _enabled_editors:
   - visual
+  
+paths:
+  static: ''
+  uploads: assets/images  # Aquí es donde se guardarán físicamente en GitHub
