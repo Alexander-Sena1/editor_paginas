@@ -1,5 +1,5 @@
 {
-  "ssg": "other",
+  "ssg": "/index.html",
   "mode": "hosted",
   "build": {
     "hugoVersion": "0.157.0",
