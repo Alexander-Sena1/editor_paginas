@@ -1,0 +1,27 @@
+{
+  "name": "editor-de-la-pag",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexander-Sena1/editor_paginas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Alexander-Sena1/editor_paginas/issues"
+  },
+  "homepage": "https://github.com/Alexander-Sena1/editor_paginas#readme",
+  "dependencies": {
+    "tinacms": "^3.7.1"
+  },
+  "devDependencies": {
+    "@tinacms/cli": "^2.2.1"
+  }
+}
