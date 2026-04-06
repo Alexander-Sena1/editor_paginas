@@ -1,14 +1,27 @@
+---
+nombre_tienda: "tiendita pan"
+productos:
+  - nombre: "Producto 1"
+    precio: "$10.00"
+    imagen: "https://via.placeholder.com/150"
+    descripcion: "Descripción breve del producto 1."
+  - nombre: "Producto 2"
+    precio: "$15.00"
+    imagen: "imgs/captura-de-pantalla-2026-03-25-083515.png"
+    descripcion: "Descripción breve del producto 2."
+---
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EDITOR</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
     <header>
-      <h1 class="editable">tiendita pan</h1>
+      <h1 class="editable" id="tienda-nombre">tiendita pan</h1>
       <nav>
         <ul>
           <li><a href="#productos">Productos</a></li>
@@ -22,21 +35,33 @@
 
         <div class="productos">
           <div class="producto">
-            <img src="https://via.placeholder.com/150" alt="Producto 1" class="editable" />
-            <h3 class="editable">Producto 1</h3>
-            <p class="editable">Descripción breve del producto 1.</p>
-            <span class="precio editable">$10.00</span>
+            <img src="" alt="" class="editable" id="p1-img" />
+            <h3 class="editable" id="p1-nombre">Cargando...</h3>
+            <p class="editable" id="p1-desc"></p>
+            <span class="precio editable" id="p1-precio"></span>
           </div>
 
           <div class="producto">
-            <img src="/assets/images/captura-de-pantalla-2026-03-25-083515.png" alt="Producto 2" class="editable" srcset="/assets/images/captura-de-pantalla-2026-03-25-083515.png 1x, /assets/images/captura-de-pantalla-2026-03-25-083515-2x.png 2x" />
+            <img
+              src="/assets/images/captura-de-pantalla-2026-03-25-083515.png"
+              alt="Producto 2"
+              class="editable"
+              srcset="
+                /assets/images/captura-de-pantalla-2026-03-25-083515.png    1x,
+                /assets/images/captura-de-pantalla-2026-03-25-083515-2x.png 2x
+              "
+            />
             <h3 class="editable">Producto 2</h3>
             <p class="editable">Descripción breve del producto 2.</p>
             <span class="precio editable">$15.00</span>
           </div>
 
           <div class="producto">
-            <img src="https://via.placeholder.com/150" alt="Producto 3" class="editable" />
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Producto 3"
+              class="editable"
+            />
             <h3 class="editable">Producto 3</h3>
             <p class="editable">Descripción breve del producto 3.</p>
             <span class="precio editable">$20.00</span>
@@ -57,5 +82,38 @@
         © 2027 Tienda Ejemplo. Todos los derechos reservados.
       </p>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        try {
+          // 1. Capturamos el contenido entre las rayitas ---
+          const htmlContent = document.documentElement.innerHTML;
+          const yamlMatch = htmlContent.match(/---([\s\S]*?)---/);
+
+          if (yamlMatch && yamlMatch[1]) {
+            // 2. Convertimos ese texto en datos reales
+            const data = jsyaml.load(yamlMatch[1]);
+            console.log("Datos cargados de Tina:", data);
+
+            // 3. Aplicamos los datos al HTML
+            if (data.nombre_tienda) {
+              document.getElementById("tienda-nombre").innerText =
+                data.nombre_tienda;
+            }
+
+            if (data.productos && data.productos[0]) {
+              const p1 = data.productos[0];
+              document.getElementById("p1-nombre").innerText = p1.nombre;
+              document.getElementById("p1-precio").innerText = p1.precio;
+              document.getElementById("p1-desc").innerText = p1.descripcion;
+              document.getElementById("p1-img").src = p1.imagen;
+            }
+          }
+        } catch (e) {
+          console.error("Error al conectar con los datos de Tina:", e);
+        }
+      });
+    </script>
   </body>
 </html>

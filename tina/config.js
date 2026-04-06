@@ -17,7 +17,7 @@ export default defineConfig({
 
   build: {
     outputFolder: "admin",
-    publicFolder: "public",
+    publicFolder: "", // O la carpeta donde esté tu index.html.
   },
   // Uncomment to allow cross-origin requests from non-localhost origins
   // during local development (e.g. GitHub Codespaces, Gitpod, Docker).
@@ -27,30 +27,55 @@ export default defineConfig({
   // },
   media: {
     tina: {
-      mediaRoot: "",
-      publicFolder: "public",
+      mediaRoot: "assets/images", // Carpeta donde se guardarán los archivos subidos
+      publicFolder: "", // Carpeta pública donde se servirán los archivos
     },
   },
   // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/r/content-modelling-collections/
   schema: {
     collections: [
       {
-        name: "post",
-        label: "Posts",
-        path: "content/posts",
+        name: "tienda",
+        label: "Gestión de Tienda",
+        path: "/", // Raíz donde está tu index.html
+        format: "md",
+        ui: {
+          allowedActions: { create: false, delete: false },
+        },
+        match: {
+          include: "index.html",
+        },
         fields: [
           {
             type: "string",
-            name: "title",
-            label: "Title",
-            isTitle: true,
-            required: true,
+            name: "nombre_tienda",
+            label: "Nombre de la Tienda",
           },
           {
-            type: "rich-text",
+            type: "object",
+            list: true,
+            name: "productos",
+            label: "Lista de Productos",
+            ui: {
+              itemProps: (item) => ({ label: item?.nombre }),
+            },
+            fields: [
+              { type: "string", name: "nombre", label: "Nombre del Pan" },
+              { type: "string", name: "precio", label: "Precio (ej: $10.00)" },
+              { type: "image", name: "imagen", label: "Foto del Producto" },
+              {
+                type: "string",
+                name: "descripcion",
+                label: "Descripción Corta",
+              },
+            ],
+          },
+          {
+            type: "string",
             name: "body",
-            label: "Body",
+            label: "Código Base (No tocar)",
             isBody: true,
+            ui: { component: "textarea" },
           },
         ],
       },
